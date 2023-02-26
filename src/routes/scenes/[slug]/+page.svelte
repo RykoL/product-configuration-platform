@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { PageData } from './$types'
+    import EnvironmentInfo from '$lib/components/EnvironmentInfo.svelte'
     export let data: PageData
 </script>
 
@@ -16,11 +17,6 @@
             <p>This scene has no products yet</p>
         {/each}
     </article>
-
-    <article>
-        <h3>Environment</h3>
-        <p>Id: {data.scene.environment.id}</p>
-        <p>Name :{data.scene.environment.name}</p>
-    </article>
+    <EnvironmentInfo environment={data.scene.environment}/>
 </section>
 <a href={`${data.scene.id}/visualize`}>Visualize Scene</a>

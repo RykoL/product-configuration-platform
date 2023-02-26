@@ -3,10 +3,12 @@ export type GetAllProductsResponse = Array<{
     name: string
 }>
 
-export type GetAllEnvironmentsResponse = Array<{
-    id: number
+export type GetAllEnvironmentsResponse = Array<GetEnvironmentResponse>
+
+export type GetEnvironmentResponse = {
+    id: number,
     name: string
-}>
+}
 
 export type CreateNewSceneResponse = {
     id: number,
