@@ -1,11 +1,10 @@
-import type {PageLoad} from "./$types";
-import {getAllEnvironments} from "../../lib/api/environments";
+import type { PageLoad } from './$types';
+import { getAllEnvironments } from '../../lib/api/environments';
 
-export const load: PageLoad = (async ({fetch}) => {
+export const load: PageLoad = async ({ fetch }) => {
+	const environments = await getAllEnvironments(fetch);
 
-    const environments = await getAllEnvironments(fetch)
-
-    return {
-        environments
-    };
-});
+	return {
+		environments
+	};
+};

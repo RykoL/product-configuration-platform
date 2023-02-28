@@ -1,4 +1,4 @@
 export type UploadEnvironmentRequestData = {
-    name: string
-    environment: File
-}
+	name: string;
+	environment: File;
+};
