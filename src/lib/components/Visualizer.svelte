@@ -3,18 +3,28 @@
 	import { onMount } from 'svelte';
 
 	interface Environment {
-		id: string;
+		id: number;
 		name: string;
 		asset: {
-			id: string;
-			name: string;
-			path: string;
-			type: string;
+            id: string;
+            name: string;
+            location: string;
+            type: string
 		};
 	}
 
+    export let dataUrl: string
 	let rendererContainer: HTMLElement;
-	export let env: Environment;
+	let env: Environment = {
+        id: 1,
+        name: "test_environment",
+        asset: {
+            id: "1",
+            name: "test_asset",
+            location: dataUrl,
+            type: "Environment"
+        }
+    };
 
 	onMount(() => {
 		const application = new Application(rendererContainer);

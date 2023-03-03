@@ -1,6 +1,6 @@
 import { PUBLIC_BACKEND_URL } from '$env/static/public';
-import type { GetAllEnvironmentsResponse, GetEnvironmentResponse } from './responses';
-import type { UploadEnvironmentRequestData } from './requests';
+import type {CreateAssetResponse, GetAllEnvironmentsResponse, GetEnvironmentResponse} from './responses';
+import type {CreateEnvironmentRequestData, UploadEnvironmentRequestData} from './requests';
 
 export const getAllEnvironments = async (
 	fetchFn: typeof fetch
@@ -12,15 +12,34 @@ export const getAllEnvironments = async (
 export const uploadEnvironment = async (
 	fetchFn: typeof fetch,
 	uploadEnvironmentData: UploadEnvironmentRequestData
-): Promise<void> => {
+): Promise<CreateAssetResponse> => {
 	const payload = new FormData();
 	for (const [key, value] of Object.entries(uploadEnvironmentData)) {
 		payload.append(key, value);
 	}
+	payload.append("type", "Environment")
 
-	const resp = await fetchFn(`${PUBLIC_BACKEND_URL}/v1/assets/environments`, {
+	const resp = await fetchFn(`${PUBLIC_BACKEND_URL}/v1/assets`, {
 		method: 'POST',
 		body: payload
+	});
+
+	if (!resp.ok) {
+		throw new Error(await resp.text());
+	}
+	return await resp.json()
+};
+
+export const createEnvironment = async (
+	fetchFn: typeof fetch,
+	createEnvironmentRequestData: CreateEnvironmentRequestData
+): Promise<void> => {
+	const resp = await fetchFn(`${PUBLIC_BACKEND_URL}/v1/assets/environments`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(createEnvironmentRequestData)
 	});
 
 	if (!resp.ok) {
