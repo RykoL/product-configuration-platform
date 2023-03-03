@@ -14,6 +14,8 @@
 	}
 
     export let dataUrl: string
+    export let width: number = 0
+    export let height: number = 0
 	let rendererContainer: HTMLElement;
 	let env: Environment = {
         id: 1,
@@ -27,7 +29,7 @@
     };
 
 	onMount(() => {
-		const application = new Application(rendererContainer);
+		const application = new Application(rendererContainer, width, height);
 		application.run();
 		application.loadScene(new Scene(env));
 	});
